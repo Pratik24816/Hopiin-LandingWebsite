@@ -92,7 +92,7 @@ const features: FeatureItem[] = [
   {
     icon: '🍿',
     title: 'Cheesy notifications',
-    tagline: 'Zomato energy, plan edition',
+    tagline: '',
     description:
       '"Plot twist — someone joined your plan." Lock-screen alerts with personality. RSVPs deserve drama.',
     gradient: 'linear-gradient(90deg, rgba(140,255,79,0.12), rgba(77,181,255,0.1), rgba(2,6,23,0.95))',

@@ -2,8 +2,17 @@
 .hopiin-circle {
   position: relative;
   padding: clamp(5rem, 12vw, 9rem) 0;
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: hidden;
   min-height: 100vh;
+}
+
+.hopiin-circle__container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .circle-bg-3d {
@@ -51,11 +60,6 @@
     transform: translateY(-32px) scale(1.4);
     opacity: 0.55;
   }
-}
-
-.hopiin-circle__container {
-  position: relative;
-  z-index: 1;
 }
 
 /* Header */
@@ -134,10 +138,18 @@
 /* Stage layout */
 .hopiin-circle__stage {
   display: grid;
-  grid-template-columns: minmax(320px, 420px) 1fr;
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
   gap: clamp(1.5rem, 4vw, 3rem);
   align-items: stretch;
   min-height: 620px;
+  width: 100%;
+  max-width: 100%;
+}
+
+.hopiin-circle__form-panel,
+.hopiin-circle__arena-wrap {
+  min-width: 0;
+  max-width: 100%;
 }
 
 /* Form panel */
@@ -155,6 +167,11 @@
     0 24px 60px rgba(0, 0, 0, 0.45),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
   height: 100%;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .hopiin-circle__form-header {
@@ -162,6 +179,12 @@
   align-items: center;
   gap: 1rem;
   margin-bottom: 1.25rem;
+  min-width: 0;
+}
+
+.hopiin-circle__form-header > div {
+  min-width: 0;
+  flex: 1;
 }
 
 .hopiin-circle__avatar-preview {
@@ -200,21 +223,26 @@
 
 .hopiin-circle__avatar-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.45rem;
   margin-bottom: 1.5rem;
+  width: 100%;
 }
 
 .hopiin-circle__avatar-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 0.2rem;
-  padding: 0.5rem 0.25rem;
+  width: 100%;
+  min-width: 0;
+  padding: 0.5rem 0.2rem;
   border-radius: 12px;
   border: 2px solid transparent;
   cursor: pointer;
   transition: border-color 0.2s, box-shadow 0.2s;
+  overflow: hidden;
 }
 
 .hopiin-circle__avatar-btn--on {
@@ -230,9 +258,13 @@
 .hopiin-circle__avatar-btn-label {
   font-size: 0.48rem;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   color: rgba(255, 255, 255, 0.85);
   text-align: center;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .hopiin-circle__label {
@@ -250,6 +282,8 @@
   flex-wrap: wrap;
   gap: 0.35rem;
   margin-bottom: 0.85rem;
+  width: 100%;
+  min-width: 0;
 }
 
 .hopiin-circle__cat {
@@ -262,6 +296,7 @@
   color: var(--text-secondary);
   cursor: pointer;
   transition: all 0.2s;
+  max-width: 100%;
 }
 
 .hopiin-circle__cat--on {
@@ -270,9 +305,16 @@
   color: var(--primary);
 }
 
+.hopiin-circle__form {
+  width: 100%;
+  min-width: 0;
+}
+
 .hopiin-circle__input,
 .hopiin-circle__textarea {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   padding: 0.75rem 1rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
@@ -281,6 +323,7 @@
   margin-bottom: 0.65rem;
   transition: border-color 0.2s, box-shadow 0.2s;
   resize: vertical;
+  box-sizing: border-box;
 }
 
 .hopiin-circle__input:focus,
@@ -1361,32 +1404,355 @@
 
 /* Responsive */
 @media (max-width: 960px) {
-  .hopiin-circle__stage {
-    grid-template-columns: 1fr;
+  .hopiin-circle {
+    padding: clamp(3.5rem, 10vw, 5.5rem) 0;
     min-height: auto;
+    overflow-x: clip;
   }
 
-  .hopiin-circle__arena-wrap {
-    min-height: 480px;
+  .hopiin-circle__container {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
   }
 
-  .circle-arena {
-    min-height: 460px;
+  .hopiin-circle__header {
+    margin-bottom: 2rem;
+    padding: 0;
+    max-width: 100%;
   }
-}
 
-@media (max-width: 480px) {
+  .hopiin-circle__title {
+    font-size: clamp(1.85rem, 8.5vw, 2.75rem);
+  }
+
+  .hopiin-circle__lede {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    max-width: 100%;
+    margin-inline: auto;
+    padding: 0 0.15rem;
+  }
+
+  .hopiin-circle__stage {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+    min-height: auto;
+    width: 100%;
+  }
+
+  .hopiin-circle__form-card {
+    height: auto;
+    padding: 1.15rem 0.95rem 1.25rem;
+    border-radius: 20px;
+  }
+
+  .hopiin-circle__form-header {
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .hopiin-circle__avatar-preview {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    font-size: 1.25rem;
+  }
+
+  .hopiin-circle__form-title {
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+
+  .hopiin-circle__form-sub {
+    font-size: 0.75rem;
+  }
+
+  .hopiin-circle__avatar-prompt {
+    font-size: 0.75rem;
+    text-align: left;
+    margin-bottom: 0.7rem;
+    color: var(--text-secondary);
+  }
+
   .hopiin-circle__avatar-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.4rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .hopiin-circle__avatar-btn {
+    min-height: 4rem;
+    padding: 0.5rem 0.15rem;
+    border-radius: 12px;
+    gap: 0.25rem;
+  }
+
+  .hopiin-circle__avatar-btn-emoji {
+    font-size: 1.3rem;
+  }
+
+  .hopiin-circle__avatar-btn-label {
+    font-size: 0.62rem;
+    white-space: normal;
+    line-height: 1.15;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: unset;
+  }
+
+  .hopiin-circle__label {
+    font-size: 0.7rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Chip wrap — never force a rigid 2-col that overflows */
+  .hopiin-circle__categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .hopiin-circle__cat {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 100%;
+    min-height: 2.35rem;
+    padding: 0.45rem 0.7rem;
+    font-size: 0.72rem;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .hopiin-circle__input,
+  .hopiin-circle__textarea {
+    font-size: 16px;
+    padding: 0.85rem 0.9rem;
+    margin-bottom: 0.7rem;
+    border-radius: 14px;
+  }
+
+  .hopiin-circle__textarea {
+    min-height: 6rem;
   }
 
   .hopiin-circle__form-footer {
     flex-direction: column;
     align-items: stretch;
+    gap: 0.65rem;
+    margin-top: 0.35rem;
+    min-width: 0;
+  }
+
+  .hopiin-circle__char-count {
+    order: -1;
+    align-self: flex-end;
+    font-size: 0.75rem;
   }
 
   .hopiin-circle__submit {
     width: 100%;
+    max-width: 100%;
+    justify-content: center;
+    min-height: 3.15rem;
     text-align: center;
+  }
+
+  .hopiin-circle__arena-wrap {
+    min-height: auto;
+    gap: 0.65rem;
+    width: 100%;
+  }
+
+  .circle-live-feed {
+    margin-bottom: 0;
+    padding: 0.6rem 0.75rem;
+    border-radius: 14px;
+    max-width: 100%;
+    mask-image: linear-gradient(90deg, #000 82%, transparent);
+  }
+
+  .circle-live-feed__item {
+    font-size: 0.78rem;
+  }
+
+  .circle-arena {
+    min-height: min(68vw, 420px);
+    height: min(72vw, 440px);
+    border-radius: 22px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .circle-arena__picker {
+    top: 0.55rem;
+    left: 0.55rem;
+    right: 0.55rem;
+    padding: 0.4rem 0.5rem;
+    gap: 0.45rem;
+    max-width: calc(100% - 1.1rem);
+  }
+
+  .circle-arena__picker-label {
+    font-size: 0.55rem;
+  }
+
+  .circle-arena__picker-btn {
+    min-height: 2.15rem;
+    padding: 0.35rem 0.7rem;
+  }
+
+  .circle-arena__picker-name {
+    font-size: 0.68rem;
+    max-width: 72px;
+  }
+
+  .circle-bubble {
+    width: 68px;
+    height: 68px;
+    margin: -34px 0 0 -34px;
+  }
+
+  .circle-bubble__emoji {
+    font-size: 1.35rem;
+  }
+
+  .circle-bubble__name {
+    bottom: -18px;
+    font-size: 0.62rem;
+    max-width: 76px;
+  }
+
+  .circle-bubble__fire {
+    top: -8px;
+    font-size: 0.55rem;
+  }
+
+  .circle-arena__tap-hint {
+    bottom: 3.25rem;
+    white-space: normal;
+    max-width: calc(100% - 1.5rem);
+    font-size: 0.72rem;
+    line-height: 1.35;
+    padding: 0.55rem 0.85rem;
+  }
+
+  .circle-arena__detail {
+    bottom: 2.5rem;
+    left: 0.55rem;
+    right: 0.55rem;
+    padding: 0.85rem 0.85rem 0.9rem;
+    border-radius: 16px;
+    max-width: calc(100% - 1.1rem);
+  }
+
+  .circle-arena__detail-msg {
+    font-size: 0.84rem;
+  }
+
+  .circle-arena__count {
+    bottom: 0.45rem;
+  }
+
+  .circle-arena__count-num {
+    font-size: 1.25rem;
+  }
+
+  .circle-arena__count-label {
+    font-size: 0.55rem;
+  }
+
+  .hopiin-circle__arena-hint {
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+    line-height: 1.45;
+    margin-top: 0.35rem;
+    padding: 0 0.25rem;
+    max-width: 100%;
+  }
+
+  .hopiin-circle__arena-hint-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-right: 0.45rem;
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  .hopiin-circle__arena-hint-live::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--primary);
+    box-shadow: 0 0 8px var(--primary);
+  }
+
+  .circle-arena__stars,
+  .circle-arena__ring--spin,
+  .circle-arena__ring--3 {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .hopiin-circle__avatar-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.35rem;
+  }
+
+  .hopiin-circle__avatar-btn {
+    min-height: 3.75rem;
+    padding: 0.4rem 0.1rem;
+  }
+
+  .hopiin-circle__avatar-btn-label {
+    font-size: 0.58rem;
+  }
+
+  .hopiin-circle__cat {
+    flex: 1 1 calc(50% - 0.4rem);
+    white-space: normal;
+    text-align: center;
+  }
+
+  .circle-arena {
+    min-height: 360px;
+    height: 380px;
+  }
+
+  .circle-arena__detail {
+    bottom: 2.25rem;
+    gap: 0.65rem;
+  }
+
+  .circle-arena__detail-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .hopiin-circle__avatar-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hopiin-circle__avatar-btn {
+    min-height: 3.5rem;
+  }
+
+  .hopiin-circle__avatar-btn-label {
+    font-size: 0.65rem;
   }
 }

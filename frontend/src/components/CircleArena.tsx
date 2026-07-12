@@ -26,6 +26,13 @@ type Props = {
 };
 
 const BASE_RADIUS = 42;
+const MOBILE_RADIUS = 34;
+
+function bubbleRadius(width: number): number {
+  if (width < 420) return MOBILE_RADIUS;
+  if (width < 640) return 38;
+  return BASE_RADIUS;
+}
 
 function createBubble(
   member: CircleMember,
@@ -33,6 +40,8 @@ function createBubble(
   height: number,
   opts: { isNew: boolean; flyIn: boolean },
 ): SimBubble {
+  const radius = bubbleRadius(width);
+
   if (opts.flyIn) {
     return {
       id: member.id,
@@ -40,7 +49,7 @@ function createBubble(
       y: height / 2 + (Math.random() - 0.5) * 60,
       vx: 3.2 + Math.random() * 0.6,
       vy: (Math.random() - 0.5) * 0.5,
-      radius: BASE_RADIUS,
+      radius,
       member,
       phase: Math.random() * Math.PI * 2,
       isNew: true,
@@ -48,14 +57,14 @@ function createBubble(
   }
 
   const angle = Math.random() * Math.PI * 2;
-  const dist = Math.random() * Math.min(width, height) * 0.26;
+  const dist = Math.random() * Math.min(width, height) * 0.22;
   return {
     id: member.id,
     x: width / 2 + Math.cos(angle) * dist,
-    y: height / 2 + Math.sin(angle) * dist,
+    y: height / 2 + Math.sin(angle) * dist * 0.75,
     vx: (Math.random() - 0.5) * 0.35,
     vy: (Math.random() - 0.5) * 0.35,
-    radius: BASE_RADIUS,
+    radius,
     member,
     phase: Math.random() * Math.PI * 2,
     isNew: opts.isNew,
@@ -94,6 +103,7 @@ export function CircleArena({
       const existing = current.find(b => b.id === member.id);
       if (existing) {
         existing.member = member;
+        existing.radius = bubbleRadius(w);
         continue;
       }
 
@@ -304,6 +314,10 @@ export function CircleArena({
             style={{
               left: b.x,
               top: b.y,
+              width: b.radius * 2,
+              height: b.radius * 2,
+              marginLeft: -b.radius,
+              marginTop: -b.radius,
               ['--bubble-glow' as string]: avatar.glow,
               ['--bubble-bg' as string]: avatar.gradient,
             }}
@@ -391,7 +405,7 @@ export function CircleArena({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            👆 Tap any avatar or name above to read their message
+            👆 Tap a name or avatar to read
           </motion.p>
         )}
       </AnimatePresence>

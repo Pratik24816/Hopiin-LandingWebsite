@@ -133,9 +133,9 @@ export function HopiinCircle() {
                   <motion.span
                     key={w}
                     className="hopiin-circle__title-word"
-                    initial={{ opacity: 0, y: 36, filter: 'blur(8px)' }}
-                    animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
-                    transition={{ delay: 0.1 + i * 0.08, duration: 0.65 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ delay: 0.08 + i * 0.05, duration: 0.45 }}
                   >
                     {w}
                   </motion.span>
@@ -146,9 +146,9 @@ export function HopiinCircle() {
                   <motion.span
                     key={w}
                     className={`hopiin-circle__title-word ${i === 0 ? 'gradient-text' : ''}`}
-                    initial={{ opacity: 0, y: 36, filter: 'blur(8px)' }}
-                    animate={inView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
-                    transition={{ delay: 0.3 + i * 0.08, duration: 0.65 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ delay: 0.2 + i * 0.05, duration: 0.45 }}
                   >
                     {w}
                   </motion.span>
@@ -171,9 +171,9 @@ export function HopiinCircle() {
         <div className="hopiin-circle__stage">
           <motion.div
             className="hopiin-circle__form-panel"
-            initial={{ opacity: 0, x: -40 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.2, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="hopiin-circle__form-card">
               <div className="hopiin-circle__form-header">
@@ -205,7 +205,7 @@ export function HopiinCircle() {
               </div>
 
               <p className="hopiin-circle__avatar-prompt">
-                Tap the expression that matches your reaction after exploring the app idea
+                Tap the feeling that matches your reaction
               </p>
 
               <div
@@ -227,8 +227,7 @@ export function HopiinCircle() {
                       ['--av-glow' as string]: a.glow,
                     }}
                     onClick={() => setSelectedAvatar(a.id)}
-                    whileHover={{ scale: 1.08, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileTap={{ scale: 0.96 }}
                   >
                     <span className="hopiin-circle__avatar-btn-emoji">{a.emoji}</span>
                     <span className="hopiin-circle__avatar-btn-label">{a.label}</span>
@@ -319,8 +318,8 @@ export function HopiinCircle() {
             )}
 
             <p className="hopiin-circle__arena-hint">
-              {isLive ? '🟢 Live shared wall · ' : ''}
-              Tap any avatar to read · Scroll names at top · 🔥 to react
+              {isLive ? <span className="hopiin-circle__arena-hint-live">Live</span> : null}
+              Tap an avatar to read · React with 🔥
             </p>
           </motion.div>
         </div>
