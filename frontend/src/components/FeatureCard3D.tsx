@@ -1,10 +1,4 @@
-import {
-  motion,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from 'framer-motion';
-import { type MouseEvent } from 'react';
+import { motion } from 'framer-motion';
 import { useInView } from '../hooks/useInView';
 import './features.css';
 
@@ -45,7 +39,7 @@ function FeatureCardVisual({ visual, active }: { visual: FeatureVisual; active: 
               key={c}
               className={`fc-visual__chip ${i === 2 ? 'fc-visual__chip--on' : ''}`}
               animate={active ? { opacity: 1, x: 0 } : { opacity: 0, x: -12 }}
-              transition={{ delay: 0.3 + i * 0.1 }}
+              transition={{ delay: 0.15 + i * 0.08 }}
             >
               {c}
             </motion.span>
@@ -53,15 +47,7 @@ function FeatureCardVisual({ visual, active }: { visual: FeatureVisual; active: 
         </div>
       );
     case 'button':
-      return (
-        <motion.div
-          className="fc-visual__hop-btn"
-          animate={active ? { scale: [1, 1.04, 1] } : {}}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          Hop In ⚡
-        </motion.div>
-      );
+      return <div className="fc-visual__hop-btn">Hop In ⚡</div>;
     case 'publish':
       return (
         <div className="fc-visual fc-visual--publish">
@@ -69,7 +55,7 @@ function FeatureCardVisual({ visual, active }: { visual: FeatureVisual; active: 
             className="fc-visual__progress"
             initial={{ scaleX: 0 }}
             animate={active ? { scaleX: 1 } : {}}
-            transition={{ delay: 0.4, duration: 0.8 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
           />
           <span className="fc-visual__pub">Publish 🔥</span>
         </div>
@@ -77,13 +63,7 @@ function FeatureCardVisual({ visual, active }: { visual: FeatureVisual; active: 
     case 'map':
       return (
         <div className="fc-visual fc-visual--map">
-          <motion.span
-            className="fc-visual__pin"
-            animate={active ? { y: [0, -6, 0] } : {}}
-            transition={{ duration: 2.5, repeat: Infinity }}
-          >
-            📍
-          </motion.span>
+          <span className="fc-visual__pin">📍</span>
           <span className="fc-visual__map-label">CG Road · 0.8 km</span>
         </div>
       );
@@ -97,7 +77,7 @@ function FeatureCardVisual({ visual, active }: { visual: FeatureVisual; active: 
               style={{ ['--i' as string]: i }}
               initial={{ scale: 0 }}
               animate={active ? { scale: 1 } : {}}
-              transition={{ delay: 0.2 + i * 0.08, type: 'spring' }}
+              transition={{ delay: 0.1 + i * 0.06 }}
             />
           ))}
           <span className="fc-visual__avatar-count">+12 joined</span>
@@ -107,9 +87,9 @@ function FeatureCardVisual({ visual, active }: { visual: FeatureVisual; active: 
       return (
         <motion.div
           className="fc-visual__notif"
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={active ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.35 }}
+          transition={{ delay: 0.2 }}
         >
           <span>🔔 Plot twist — someone joined!</span>
         </motion.div>
@@ -123,7 +103,7 @@ function FeatureCardVisual({ visual, active }: { visual: FeatureVisual; active: 
               className={`fc-visual__bubble ${i === 1 ? 'fc-visual__bubble--alt' : ''}`}
               initial={{ opacity: 0, x: i ? 12 : -12 }}
               animate={active ? { opacity: 1, x: 0 } : {}}
-              transition={{ delay: 0.3 + i * 0.15 }}
+              transition={{ delay: 0.15 + i * 0.1 }}
             >
               {m}
             </motion.span>
@@ -138,7 +118,7 @@ function FeatureCardVisual({ visual, active }: { visual: FeatureVisual; active: 
               key={f}
               className="fc-visual__filter"
               animate={active ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-              transition={{ delay: 0.25 + i * 0.08 }}
+              transition={{ delay: 0.12 + i * 0.06 }}
             >
               {f}
             </motion.span>
@@ -151,101 +131,33 @@ function FeatureCardVisual({ visual, active }: { visual: FeatureVisual; active: 
 }
 
 export function FeatureCard3D({ feature, index }: Props) {
-  const [cardRef, inView] = useInView<HTMLElement>({ threshold: 0.25 });
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [14, -14]), {
-    stiffness: 220,
-    damping: 20,
-  });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-14, 14]), {
-    stiffness: 220,
-    damping: 20,
-  });
-  const glareX = useSpring(useTransform(mouseX, [-0.5, 0.5], [0, 100]), {
-    stiffness: 200,
-    damping: 25,
-  });
-  const glareY = useSpring(useTransform(mouseY, [-0.5, 0.5], [0, 100]), {
-    stiffness: 200,
-    damping: 25,
-  });
-
-  const onMove = (e: MouseEvent<HTMLElement>) => {
-    const el = cardRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
-    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
-  };
-
-  const onLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
-  };
+  const [cardRef, inView] = useInView<HTMLElement>({ threshold: 0.2 });
 
   return (
     <motion.article
       ref={cardRef}
       className={`feature-card feature-card--${feature.layout}`}
       style={{
-        rotateX,
-        rotateY,
-        transformStyle: 'preserve-3d',
         background: feature.gradient,
         ['--mesh-color' as string]: feature.mesh,
         ['--accent' as string]: feature.accent,
       }}
-      initial={{ opacity: 0, y: 70, scale: 0.92, filter: 'blur(6px)' }}
-      animate={
-        inView
-          ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }
-          : {}
-      }
+      initial={{ opacity: 0, y: 32 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{
-        delay: 0.06 * index,
-        duration: 0.8,
+        delay: 0.04 * index,
+        duration: 0.45,
         ease: [0.22, 1, 0.36, 1],
       }}
-      onMouseMove={onMove}
-      onMouseLeave={onLeave}
     >
-      <motion.div
-        className="feature-card__glow"
-        animate={inView ? { opacity: [0.3, 0.6, 0.3], scale: [1, 1.05, 1] } : {}}
-        transition={{ duration: 4, repeat: Infinity, delay: index * 0.2 }}
-        aria-hidden
-      />
       <div className="feature-card__mesh" aria-hidden />
-      <motion.div
-        className="feature-card__shimmer"
-        animate={inView ? { x: ['-100%', '200%'] } : {}}
-        transition={{ duration: 3, repeat: Infinity, delay: index * 0.4, ease: 'linear' }}
-        aria-hidden
-      />
-      <motion.div
-        className="feature-card__glare"
-        style={{ left: glareX, top: glareY }}
-        aria-hidden
-      />
       <div className="feature-card__border" aria-hidden />
 
       <div className="feature-card__inner">
         <div className="feature-card__top">
-          <motion.span
-            className="feature-card__icon"
-            aria-hidden
-            animate={inView ? { y: [0, -8, 0], rotate: [0, 4, 0, -4, 0] } : {}}
-            transition={{
-              delay: 0.5 + index * 0.1,
-              duration: 4,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          >
+          <span className="feature-card__icon" aria-hidden>
             {feature.icon}
-          </motion.span>
+          </span>
           <span className="feature-card__index">{String(index + 1).padStart(2, '0')}</span>
         </div>
 
@@ -255,13 +167,6 @@ export function FeatureCard3D({ feature, index }: Props) {
         <FeatureCardVisual visual={feature.visual} active={inView} />
 
         <p className="feature-card__desc">{feature.description}</p>
-
-        <motion.div
-          className="feature-card__pulse"
-          animate={{ scale: [1, 1.6, 1], opacity: [0.5, 0, 0.5] }}
-          transition={{ duration: 2.5, repeat: Infinity, delay: index * 0.3 }}
-          aria-hidden
-        />
       </div>
     </motion.article>
   );

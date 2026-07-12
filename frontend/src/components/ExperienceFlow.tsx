@@ -1,7 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { useInView } from '../hooks/useInView';
-import { FeaturesOrb } from './FeaturesOrb';
 import { PhoneMock3D, type PhoneVisual } from './PhoneMock3D';
 import './experience.css';
 
@@ -167,37 +166,13 @@ function ExperienceStep({
       </motion.div>
 
       <div className="exp-step__phone-scene">
-        <motion.div
-          className="exp-step__phone-glow"
-          animate={inView ? { scale: [1, 1.15, 1], opacity: [0.4, 0.7, 0.4] } : {}}
-          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-          aria-hidden
-        />
-        {[0, 1].map(i => (
-          <motion.span
-            key={i}
-            className="exp-step__particle"
-            style={{ ['--pi' as string]: i }}
-            animate={
-              inView
-                ? { y: [0, -16 - i * 4, 0], opacity: [0, 0.35, 0], scale: [0.5, 0.8, 0.5] }
-                : {}
-            }
-            transition={{
-              duration: 3 + i * 0.5,
-              repeat: Infinity,
-              delay: i * 0.4,
-              ease: 'easeInOut',
-            }}
-            aria-hidden
-          />
-        ))}
+        <div className="exp-step__phone-glow" aria-hidden />
 
         <motion.div
           className="exp-step__phone"
-          initial={{ opacity: 0, y: 40, rotateY: reversed ? -12 : 12, scale: 0.94 }}
-          animate={inView ? { opacity: 1, y: 0, rotateY: 0, scale: 1 } : {}}
-          transition={{ delay: 0.2, duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, y: 28 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
           <PhoneMock3D
             visual={step.visual}
@@ -234,10 +209,6 @@ export function ExperienceFlow() {
       </motion.div>
 
       <motion.div className="experience__grid" style={{ opacity: gridOpacity }} aria-hidden />
-
-      <div className="experience__orb-3d" aria-hidden>
-        <FeaturesOrb />
-      </div>
 
       <div className="container experience__container">
         <header ref={headerRef} className="experience__header">

@@ -111,7 +111,7 @@ export function FeedScreen({ active }: ScreenProps) {
             ))}
             <span className="ui-activity__count">+4 going</span>
           </div>
-          <motion.button type="button" className="ui-hop-btn" animate={active ? { scale: [1, 1.03, 1] } : {}} transition={{ duration: 1.4, repeat: Infinity }}>
+          <motion.button type="button" className="ui-hop-btn">
             Hop In 🔥
           </motion.button>
         </div>
@@ -143,13 +143,9 @@ export function DetailsScreen({ active }: ScreenProps) {
           <span className="ui-avatar" />
           <span>Hosted by Priya</span>
         </div>
-        <motion.span
-          className="ui-details__countdown"
-          animate={active ? { opacity: [0.7, 1, 0.7] } : {}}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
+        <span className="ui-details__countdown">
           Starts in 2h 15m
-        </motion.span>
+        </span>
         <div className="ui-details__tags">
           {['chill', 'walk', 'tonight'].map((t, i) => (
             <motion.span

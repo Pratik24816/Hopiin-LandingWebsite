@@ -2,7 +2,6 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { useInView } from '../hooks/useInView';
 import { FeatureCard3D, type FeatureItem } from './FeatureCard3D';
-import { FeaturesOrb } from './FeaturesOrb';
 import './features.css';
 
 const features: FeatureItem[] = [
@@ -134,27 +133,11 @@ export function FeatureShowcase() {
     offset: ['start end', 'end start'],
   });
   const bgY = useTransform(scrollYProgress, [0, 1], ['-6%', '6%']);
-  const gridRotate = useTransform(scrollYProgress, [0, 1], [0, 8]);
 
   return (
     <section ref={sectionRef} className="features" id="features">
-      <FeaturesOrb />
-      <div className="features__orb features__orb--left" aria-hidden>
-        <FeaturesOrb />
-      </div>
-
-      <motion.div
-        className="features__grid-bg"
-        style={{ y: bgY, rotate: gridRotate }}
-        aria-hidden
-      />
-      <div className="features__particles" aria-hidden>
-        {Array.from({ length: 18 }).map((_, i) => (
-          <span key={i} className="features__particle" style={{ ['--i' as string]: i }} />
-        ))}
-      </div>
+      <motion.div className="features__grid-bg" style={{ y: bgY }} aria-hidden />
       <div className="features__beam features__beam--1" aria-hidden />
-      <div className="features__beam features__beam--2" aria-hidden />
 
       <div className="container features__container">
         <header ref={headerRef} className="features__header">

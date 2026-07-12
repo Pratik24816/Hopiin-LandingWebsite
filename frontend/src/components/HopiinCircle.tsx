@@ -15,7 +15,6 @@ import {
 } from '../lib/circleApi';
 import type { CircleMember } from '../lib/circleStorage';
 import { CircleArena } from './CircleArena';
-import { CircleBackground3D } from './CircleBackground3D';
 import { CircleLiveFeed } from './CircleLiveFeed';
 import { CircleShareCard } from './CircleShareCard';
 import './hopiin-circle.css';
@@ -107,14 +106,6 @@ export function HopiinCircle() {
 
   return (
     <section ref={ref} className="hopiin-circle" id="circle">
-      <CircleBackground3D />
-
-      <div className="hopiin-circle__particles" aria-hidden>
-        {Array.from({ length: 20 }).map((_, i) => (
-          <span key={i} className="hopiin-circle__particle" style={{ ['--i' as string]: i }} />
-        ))}
-      </div>
-
       <div className="container hopiin-circle__container">
         <header className="hopiin-circle__header">
           <motion.div
