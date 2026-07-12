@@ -100,13 +100,43 @@ export function WaitlistCTA() {
           )}
 
           <div className="waitlist__social">
+            <p className="waitlist__social-label">Stay in the loop</p>
             <a
-              href="https://instagram.com"
+              href={BRAND.instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="waitlist__ig"
+              aria-label={`Follow ${BRAND.name} on Instagram ${BRAND.instagramHandle}`}
             >
-              Follow {BRAND.name} on Instagram →
+              <span className="waitlist__ig-icon" aria-hidden>
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                  <defs>
+                    <linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#f58529" />
+                      <stop offset="50%" stopColor="#dd2a7b" />
+                      <stop offset="100%" stopColor="#8134af" />
+                    </linearGradient>
+                  </defs>
+                  <rect
+                    x="2"
+                    y="2"
+                    width="20"
+                    height="20"
+                    rx="5"
+                    stroke="url(#igGrad)"
+                    strokeWidth="1.75"
+                  />
+                  <circle cx="12" cy="12" r="4.2" stroke="url(#igGrad)" strokeWidth="1.75" />
+                  <circle cx="17.5" cy="6.5" r="1.2" fill="url(#igGrad)" />
+                </svg>
+              </span>
+              <span className="waitlist__ig-copy">
+                <span className="waitlist__ig-title">Follow us on Instagram</span>
+                <span className="waitlist__ig-handle">{BRAND.instagramHandle}</span>
+              </span>
+              <span className="waitlist__ig-arrow" aria-hidden>
+                →
+              </span>
             </a>
           </div>
         </motion.div>

@@ -3,6 +3,8 @@ export const BRAND = {
   tagline: 'Find people. Make plans. Hop in.',
   shortTagline: 'Hop in.',
   city: 'Ahmedabad',
+  instagramUrl: 'https://www.instagram.com/hopiin.app/',
+  instagramHandle: '@hopiin.app',
 } as const;
 
 const LOGO_SRC = '/assets/img/hoppinfLogo-removebg-preview.png';

@@ -155,17 +155,25 @@
   flex-wrap: wrap;
   gap: 0.75rem;
   max-width: 480px;
+  width: 100%;
   margin: 0 auto;
   justify-content: center;
+  align-items: stretch;
 }
 
 .waitlist__input {
   flex: 1 1 220px;
-  padding: 0.95rem 1.25rem;
+  width: 100%;
+  min-width: 0;
+  min-height: 3.15rem;
+  height: 3.15rem;
+  padding: 0 1.25rem;
   border-radius: var(--radius-pill, 999px);
   border: 1px solid var(--border);
   background: var(--surface);
   color: var(--text);
+  font-size: 1rem;
+  line-height: 1.2;
   outline: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -181,6 +189,7 @@
 
 .waitlist__submit {
   flex: 0 0 auto;
+  min-height: 3.15rem;
 }
 
 .waitlist__success {
@@ -208,17 +217,99 @@
 .waitlist__social {
   margin-top: 2rem;
   padding-top: 1.5rem;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid rgba(140, 255, 79, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.waitlist__social-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 .waitlist__ig {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  max-width: 100%;
+  padding: 0.85rem 1.25rem 0.85rem 0.95rem;
+  border-radius: var(--radius-pill, 999px);
+  border: 1px solid rgba(221, 42, 123, 0.35);
+  background:
+    linear-gradient(135deg, rgba(245, 133, 41, 0.12), rgba(221, 42, 123, 0.14), rgba(129, 52, 175, 0.12)),
+    rgba(11, 18, 36, 0.85);
+  color: var(--text);
+  text-decoration: none;
+  box-shadow: 0 0 0 0 rgba(221, 42, 123, 0);
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
 }
 
 .waitlist__ig:hover {
+  transform: translateY(-2px);
+  border-color: rgba(221, 42, 123, 0.55);
+  box-shadow: 0 8px 28px rgba(221, 42, 123, 0.22);
+  color: var(--text);
+}
+
+.waitlist__ig:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+.waitlist__ig-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.waitlist__ig-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+  text-align: left;
+  min-width: 0;
+}
+
+.waitlist__ig-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.waitlist__ig-handle {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.waitlist__ig:hover .waitlist__ig-handle {
+  color: #ff8cc8;
+}
+
+.waitlist__ig-arrow {
+  margin-left: 0.25rem;
+  font-size: 1.1rem;
   color: var(--primary);
+  transition: transform 0.25s ease;
+}
+
+.waitlist__ig:hover .waitlist__ig-arrow {
+  transform: translateX(3px);
 }
 
 @media (max-width: 768px) {
@@ -226,12 +317,45 @@
     transform: none;
   }
 
+  .waitlist__card {
+    padding: clamp(1.5rem, 5vw, 2.25rem);
+  }
+
+  .waitlist__desc {
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+  }
+
   .waitlist__form {
     flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 0.65rem;
+  }
+
+  .waitlist__input {
+    flex: none;
+    width: 100%;
+    max-width: none;
+    height: 3.25rem;
+    min-height: 3.25rem;
+    font-size: 16px; /* avoids iOS zoom on focus */
   }
 
   .waitlist__submit {
+    flex: none;
     width: 100%;
     justify-content: center;
+    min-height: 3.25rem;
+  }
+
+  .waitlist__ig {
+    width: 100%;
+    max-width: 100%;
+    justify-content: flex-start;
+  }
+
+  .waitlist__ig-title {
+    font-size: 0.9rem;
   }
 }
